@@ -1,5 +1,6 @@
 package com.sistemkode;
 
+import java.text.DecimalFormat;
 import java.util.Scanner;
 
 public class App
@@ -31,14 +32,16 @@ public class App
 
     public static void mainProgram(){
         Scanner scanner = new Scanner(System.in);
+        DecimalFormat dfTarif = new DecimalFormat("#,###.00");
+        DecimalFormat dfJam = new DecimalFormat("#,###.0");
 
         double totalJamKerja = getDoubleInput(scanner, "Masukkan jumlah jam kerja karyawan (dalam jam. Contoh: 5): ");
         double tarifPerJam = getDoubleInput(scanner, "Masukkan tarif per jam (dalam Rupiah. Contoh: 1000000): Rp ");
         System.out.println( "---------------------------------------------------------------------------------------------" );
         System.out.println("Hasil Perhitungan Gaji Karyawan: ");
-        System.out.println("Jumlah jam kerja: " + totalJamKerja);
-        System.out.println("Tarif per jam (bukan lembur): " + tarifPerJam);
-        System.out.println("Tarif per jam (jika lembur. ini berlaku jika jumlah jam kerja melebihi 40 jam): " + (tarifPerJam * 1.5));
+        System.out.println("Jumlah jam kerja: " + dfJam.format(totalJamKerja));
+        System.out.println("Tarif per jam (bukan lembur): " + dfTarif.format(tarifPerJam));
+        System.out.println("Tarif per jam (jika lembur. ini berlaku jika jumlah jam kerja melebihi 40 jam): " + dfTarif.format(tarifPerJam * 1.5));
         System.out.println();
 
         double jamLembur = 0;
@@ -52,12 +55,12 @@ public class App
             totalTarifBiasa = totalJamKerja * tarifPerJam;
         }
 
-        System.out.println("Total tarif (bukan lembur): Rp " + totalTarifBiasa);
-        System.out.println("Total tarif (lembur untuk " + jamLembur + " jam): Rp " + totalTarifLembur);
+        System.out.println("Total tarif (bukan lembur): Rp " + dfTarif.format(totalTarifBiasa));
+        System.out.println("Total tarif (lembur untuk " + jamLembur + " jam): Rp " + dfTarif.format(totalTarifLembur));
 
         System.out.println();
 
-        System.out.println("Total keseluruhan: Rp " + (totalTarifBiasa + totalTarifLembur));
+        System.out.println("Total keseluruhan: Rp " + dfTarif.format(totalTarifBiasa + totalTarifLembur));
         System.out.println( "---------------------------------------------------------------------------------------------" );
     }
 
